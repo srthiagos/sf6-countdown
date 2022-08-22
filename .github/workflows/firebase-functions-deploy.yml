@@ -27,6 +27,6 @@ jobs:
         working-directory: ./functions
         run: npm ci
 
-      - name: Build and deploy
+      - name: Deploy
         working-directory: ./functions
-        run: npm run build && firebase deploy --only functions --token ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only functions --token ${{ secrets.FIREBASE_TOKEN }}
