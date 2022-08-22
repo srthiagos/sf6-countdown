@@ -24,7 +24,9 @@ jobs:
       - run: npm i -g firebase-tools
 
       - name: Install dependencies
+        working-directory: ./functions
         run: npm ci
 
       - name: Build and deploy
+        working-directory: ./functions
         run: npm run build && firebase deploy --only functions --token ${{ secrets.FIREBASE_TOKEN }}
