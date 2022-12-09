@@ -29,4 +29,4 @@ jobs:
 
       - name: Deploy
         working-directory: ./functions
-        run: firebase deploy --only functions --token ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --force --only functions --token ${{ secrets.FIREBASE_TOKEN }}
