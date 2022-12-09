@@ -3,7 +3,6 @@ const functions = require("firebase-functions");
 const uuid = require("uuid");
 const crypto = require("crypto");
 const { default: axios } = require("axios");
-const twitterText = require("twitter-text");
 const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 const customParseFormat = require("dayjs/plugin/customParseFormat");
@@ -40,7 +39,7 @@ const createAuth = (envs, method, url, query = {}) => {
     oauth_version,
   };
 
-  const newQueryString = Object.assign(headers,query);
+  const newQueryString = Object.assign(headers, query);
   const queryString = Object.keys(newQueryString)
     .sort()
     .map((k) => {
@@ -72,18 +71,23 @@ const createAuth = (envs, method, url, query = {}) => {
 const buildCountDownTweet = () => {
   // const releaseDate = dayjs("10/12/2022", "DD/MM/YYYY");
   const curDate = dayjs();
-  const releaseDate = dayjs('02/06/2023', 'DD/MM/YYYY')
+  const releaseDate = dayjs("02/06/2023", "DD/MM/YYYY");
 
-  // const data = JSON.stringify({ "text": `${countdown} days left`, "media": { "media_ids": ["1501312416398733314"] } });
+  // const data = JSON.stringify({ "text": `${countdown} days left`, "media": {
+  // "media_ids": ["1501312416398733314"] } });
   const data = {
-    text: `${releaseDate.fromNow(true)} left! #StreetFighter #SF6 #StreetFighter6`,
+    text: `${releaseDate.fromNow(
+      true
+    )} left! #StreetFighter`,
   };
 
   if (releaseDate.diff(curDate, "hour") < 1) {
-    data.text = "It's happening!!!!!!! RELEASE SOON!!! #StreetFighter #SF6 #StreetFighter6";
+    data.text = "It's happening!!!!!!! RELEASE SOON!!! #StreetFighter";
     // data.media = { media_ids: ["1569720599198502913"] };
   }
-}
+  data.text += " #SF6 #StreetFighter6";
+  return data;
+};
 
 exports.countDown = functions
   .runWith({
@@ -95,22 +99,22 @@ exports.countDown = functions
       "CONSUMER_KEY",
     ],
   })
-  .https.onRequest(async (req, res) => {
+  .https.onRequest((req, res) => {
     const url = "https://api.twitter.com/2/tweets";
     const authorization = createAuth(process.env, methods.post, url);
-    const data = buildCountDownTweet()
+    const data = buildCountDownTweet();
 
     const config = {
       method: methods.post,
       url,
       headers: {
-        Authorization: `OAuth ${authorization}`,
+        "Authorization": `OAuth ${authorization}`,
         "Content-Type": "application/json",
       },
       data: JSON.stringify(data),
     };
 
-    axios(config)
+    return axios(config)
       .then(() => {
         console.info("Twitter API request did well");
         res.json(data);
@@ -129,27 +133,28 @@ exports.countDown = functions
       "CONSUMER_SECRET",
       "CONSUMER_KEY",
     ],
-  }).pubsub.schedule('every 1 days')
-  .onRun(async (context) => {
+  })
+  .pubsub.schedule("every 1 days")
+  .onRun((context) => {
     const url = "https://api.twitter.com/2/tweets";
     const authorization = createAuth(process.env, methods.post, url);
-    const data = buildCountDownTweet()
+    const data = buildCountDownTweet();
 
     const config = {
       method: methods.post,
       url,
       headers: {
-        Authorization: `OAuth ${authorization}`,
+        "Authorization": `OAuth ${authorization}`,
         "Content-Type": "application/json",
       },
       data: JSON.stringify(data),
     };
 
-    axios(config)
+    return axios(config)
       .then(() => {
         console.info("Twitter API request did well");
       })
       .catch((e) => {
-        console.error(e)
+        console.error(e);
       });
   });
