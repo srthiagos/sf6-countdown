@@ -40,7 +40,7 @@ const createAuth = (envs, method, url, query = {}) => {
     oauth_version,
   };
 
-  const newQueryString = { ...headers, ...query };
+  const newQueryString = Object.assign(headers,query);
   const queryString = Object.keys(newQueryString)
     .sort()
     .map((k) => {
