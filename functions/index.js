@@ -134,7 +134,8 @@ exports.countDown = functions
       "CONSUMER_KEY",
     ],
   })
-  .pubsub.schedule("every 1 days")
+  .pubsub.schedule("30 23 * * *")
+  .timeZone("America/New_York")
   .onRun((context) => {
     const url = "https://api.twitter.com/2/tweets";
     const authorization = createAuth(process.env, methods.post, url);
