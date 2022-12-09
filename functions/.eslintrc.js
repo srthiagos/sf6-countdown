@@ -9,6 +9,10 @@ module.exports = {
     "google",
   ],
   rules: {
-    quotes: ["error", "double"],
+    "object-curly-spacing": ["error", "always"],
+    "quotes": ["error", "double"],
+    "indent": ["error", 2],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "block-spacing": ["error", "always"],
   },
 };

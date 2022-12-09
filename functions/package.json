@@ -28,12 +28,15 @@
   ],
   "author": "Thiago Sousa",
   "license": "MIT",
+  "repository": "https://github.com/srthiagos/sf6-countdown",
   "dependencies": {
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.7",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
-    "axios": "^0.27.2",
     "got": "^12.3.1",
-    "oauth-1.0a": "^2.2.6"
+    "twitter-text": "^3.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^8.9.0",
