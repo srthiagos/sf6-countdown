@@ -76,9 +76,9 @@ const buildCountDownTweet = () => {
   // const data = JSON.stringify({ "text": `${countdown} days left`, "media": {
   // "media_ids": ["1501312416398733314"] } });
   const data = {
-    text: `${releaseDate.fromNow(
-      true
-    )} left! #StreetFighter`,
+    text: `${releaseDate.diff(
+      curDate, "d"
+    )} days! #StreetFighter`,
   };
 
   if (releaseDate.diff(curDate, "hour") < 1) {
