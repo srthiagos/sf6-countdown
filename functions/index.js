@@ -78,14 +78,14 @@ const buildCountDownTweet = () => {
   const data = {
     text: `${releaseDate.diff(
       curDate, "d"
-    )} days! #StreetFighter`,
+    )} days!`,
   };
 
   if (releaseDate.diff(curDate, "hour") < 1) {
     data.text = "It's happening!!!!!!! RELEASE SOON!!! #StreetFighter";
     // data.media = { media_ids: ["1569720599198502913"] };
   }
-  data.text += " #SF6 #StreetFighter6";
+  data.text += " #SF6 #StreetFighter6 #StreetFighter #Countdown";
   return data;
 };
 
