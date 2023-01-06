@@ -78,7 +78,7 @@ const buildCountDownTweet = () => {
   const data = {
     text: `${releaseDate.diff(
       curDate, "d"
-    )} days!`,
+    ) + 1} days!`,
   };
 
   if (releaseDate.diff(curDate, "hour") < 1) {
